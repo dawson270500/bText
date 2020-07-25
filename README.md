@@ -4,18 +4,18 @@ Plain Text Editor, Written in Java 8
 ----
 Coming in Version 1.1:
 
-  Different Save and Save As actions.
+  -Different Save and Save As actions.
   
-  Keyboard Shortcuts, e.g. cntrl + s
+  -Keyboard Shortcuts, e.g. cntrl + s
   
 ----
 Current Features:
 
-  Open Files
+  -Open Files
   
-  Save Files
+  -Save Files
   
-  Word Warp
+  -Word Warp
   
 ----
 bText is a plain text editor, written in java. It is open source.
