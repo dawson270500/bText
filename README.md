@@ -3,13 +3,18 @@ Plain Text Editor, Written in Java 8
 
 ----
 Coming in Version 1.1:
+
   Different Save and Save As actions.
+  
   Keyboard Shortcuts, e.g. cntrl + s
   
 ----
 Current Features:
+
   Open Files
+  
   Save Files
+  
   Word Warp
   
 ----
