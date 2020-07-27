@@ -2,11 +2,11 @@
 Plain Text Editor, Written in Java 8
 
 ----
-Coming in Version 1.1:
+Coming in Version 1.2:
 
-  -Different Save and Save As actions.
+  -File tabs, allowing more than one file to be open at once
   
-  -Keyboard Shortcuts, e.g. cntrl + s
+  -Open a file from command line or using "open with"
   
 ----
 Current Features:
