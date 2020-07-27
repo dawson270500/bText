@@ -3,7 +3,6 @@ package bText8;//Gui class
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 import javax.swing.*;
 
@@ -69,36 +68,26 @@ public class Gui implements ActionListener{
 		String com = e.getActionCommand();
 		
 		if(com =="Open") {//Open file
-			int returnVal = fc.showOpenDialog(frame);
-	        if (returnVal == JFileChooser.APPROVE_OPTION) {
-	            File file = (File) fc.getSelectedFile();
-	            curF = new FileHand(file);
+            curF = new FileHand(fc);
+            if(curF.file != null) {//If they selected a file
 	            String out = curF.open();
 	            if(out == null) {
 	            	JOptionPane.showMessageDialog(null, "Opening failed, check file permissions");
 	            }else {
-	            	ta.setText(out);
+	            	ta.setText(out);//Set text from file
 	            }
-	        }
-		}
-		else if(com == "Save") {//Save file
-            if(!curF.save(ta.getText())) {
-            	JOptionPane.showMessageDialog(null, "Saving failed, check file permissions");
-            }else {
-            	JOptionPane.showMessageDialog(null, "Saved successfully");
             }
-		}
-		else if(com =="Save As") {//Save as file
-			int returnVal = fc.showOpenDialog(frame);
-	        if (returnVal == JFileChooser.APPROVE_OPTION) {
-	            File file = (File) fc.getSelectedFile(); 
-	            FileHand fh = new FileHand(file);
-	            if(!fh.save(ta.getText())) {
+	       
+		}else if(com == "Save") {//Save file
+			if(curF != null) {
+	            if(!curF.save(ta.getText())) {
 	            	JOptionPane.showMessageDialog(null, "Saving failed, check file permissions");
 	            }else {
 	            	JOptionPane.showMessageDialog(null, "Saved successfully");
 	            }
-	        }
+			}else {
+				com = "Save As";//If they didn't open a file, goes to save as
+			}
 		}
 		else if(com =="Word Warp Off") {//Word warp off
 			ta.setLineWrap(false);
@@ -109,6 +98,17 @@ public class Gui implements ActionListener{
 			ta.setLineWrap(true);
 			ta.setWrapStyleWord(true);
 			m21.setText("Word Warp Off");	    
+		}
+		
+		if(com =="Save As") {//Save as file
+            FileHand fh = new FileHand(fc);
+            if(fh.file != null) {//If they selected a file
+	            if(!fh.save(ta.getText())) {
+	            	JOptionPane.showMessageDialog(null, "Saving failed, check file permissions");
+	            }else {
+	            	JOptionPane.showMessageDialog(null, "Saved successfully");
+	            }
+            }
 		}
 	}
 }
