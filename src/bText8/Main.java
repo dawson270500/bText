@@ -41,6 +41,8 @@ public class Main {
 			            }else {
 			            	win.ta.setText(out);
 			            }
+		            }else {
+		            	win.curF = null;
 		            }
 		        }
 	        }
