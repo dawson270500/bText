@@ -41,7 +41,12 @@ public class Main {
 	    	        if (returnVal == JFileChooser.APPROVE_OPTION) {
 	    	            File file = (File) win.fc.getSelectedFile();
 	    	            win.curF = new FileHand(file);
-	    	            win.ta.setText(win.curF.open());
+	    	            String out = win.curF.open();
+	    	            if(out == null) {
+	    	            	JOptionPane.showMessageDialog(null, "Opening failed, check file permissions");
+	    	            }else {
+	    	            	win.ta.setText(out);
+	    	            }
 		        	}
 		        }
 		    }

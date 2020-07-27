@@ -28,6 +28,7 @@ public class FileHand {
 		    }
 		} catch (IOException x) {
 		    System.err.format("IOException: %s%n", x);//O shit, this borked
+		    return null;
 		}
 		return ret;
 	}

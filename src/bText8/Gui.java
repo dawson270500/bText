@@ -73,7 +73,12 @@ public class Gui implements ActionListener{
 	        if (returnVal == JFileChooser.APPROVE_OPTION) {
 	            File file = (File) fc.getSelectedFile();
 	            curF = new FileHand(file);
-	            ta.setText(curF.open());
+	            String out = curF.open();
+	            if(out == null) {
+	            	JOptionPane.showMessageDialog(null, "Opening failed, check file permissions");
+	            }else {
+	            	ta.setText(out);
+	            }
 	        }
 		}
 		else if(com == "Save") {//Save file
