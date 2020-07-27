@@ -2,7 +2,7 @@
 Plain Text Editor, Written in Java 8
 
 ----
-Coming in Version 1.2:
+Coming in Version 2:
 
   -File tabs, allowing more than one file to be open at once
   
