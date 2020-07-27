@@ -76,6 +76,8 @@ public class Gui implements ActionListener{
 	            }else {
 	            	ta.setText(out);//Set text from file
 	            }
+            }else {
+            	curF = null;
             }
 	       
 		}else if(com == "Save") {//Save file
