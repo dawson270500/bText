@@ -10,6 +10,13 @@ public class Main {
 	
 	public static void main(String args[]) {
 		win = new Gui();
+		if(args.length > 0) {
+			win.curF = new FileHand(null, args[0]);
+			String text = win.curF.open();
+			if(text != null) {
+				win.ta.setText(text);
+			}
+		}
 		  win.ta.addKeyListener(new KeyListener() {
 		
 	        @SuppressWarnings("deprecation")
@@ -23,7 +30,7 @@ public class Main {
 		                	JOptionPane.showMessageDialog(null, "Saved successfully");
 		                }
 	            	}else {//Save as
-        	            FileHand fh = new FileHand(win.fc);
+        	            FileHand fh = new FileHand(win.fc, null);
         	            if(fh.file != null){//If they selected a file
 	        	            if(!fh.save(win.ta.getText())) {
 	        	            	JOptionPane.showMessageDialog(null, "Saving failed, check file permissions");
@@ -33,7 +40,7 @@ public class Main {
         	            }
 	            	}
 		        }else if ((e.getKeyCode() == KeyEvent.VK_O) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {//Open keybind
-		            win.curF = new FileHand(win.fc);
+		            win.curF = new FileHand(win.fc, null);
 		            if(win.curF.file != null) {//If they selected a file
 			            String out = win.curF.open();
 			            if(out == null) {

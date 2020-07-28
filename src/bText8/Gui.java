@@ -68,7 +68,7 @@ public class Gui implements ActionListener{
 		String com = e.getActionCommand();
 		
 		if(com =="Open") {//Open file
-            curF = new FileHand(fc);
+            curF = new FileHand(fc, null);
             if(curF.file != null) {//If they selected a file
 	            String out = curF.open();
 	            if(out == null) {
@@ -103,7 +103,7 @@ public class Gui implements ActionListener{
 		}
 		
 		if(com =="Save As") {//Save as file
-            FileHand fh = new FileHand(fc);
+            FileHand fh = new FileHand(fc, null);
             if(fh.file != null) {//If they selected a file
 	            if(!fh.save(ta.getText())) {
 	            	JOptionPane.showMessageDialog(null, "Saving failed, check file permissions");

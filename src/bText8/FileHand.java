@@ -18,11 +18,17 @@ public class FileHand {
 	private final Charset charset = Charset.forName("US-ASCII");//Character set, ability to change via GUI planned
 	
 	
-	public FileHand(JFileChooser fc) {//Using a provider file chooser from gui, lets the user choose file
-		int returnVal = fc.showOpenDialog(null);
-	    if (returnVal == JFileChooser.APPROVE_OPTION) {//If they actually chose one
-	        file = (File) fc.getSelectedFile();
-	        filePath = file.toPath();
+	public FileHand(JFileChooser fc, String args) {//Using a provider file chooser from gui, lets the user choose file
+		if(fc != null) {
+			int returnVal = fc.showOpenDialog(null);
+		    if (returnVal == JFileChooser.APPROVE_OPTION) {//If they actually chose one
+		        file = (File) fc.getSelectedFile();
+		        filePath = file.toPath();
+		    }
+		}
+	    else if(args != null) {
+	    	file  = new File(args);
+	    	filePath = file.toPath();
 	    }
 	}
 	
