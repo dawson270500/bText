@@ -3,28 +3,31 @@ package bText8;//Gui class
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 
 public class Gui implements ActionListener{
-	JFrame frame;
-	JButton button;
-	
-	JMenuBar mb;//Menu bar
-	JMenu m1;
-		JMenuItem m11;//Open
-		JMenuItem m12;//save
-		JMenuItem m13;//Save as
-	JMenu m2;
-		JMenuItem m21;//Word warp
-		JMenuItem m22;//Help in future
+	protected JFrame frame;//window 
 		
-	JPanel panel;
+	private JMenuBar mb;//Menu bar
+	private JMenu m1;//File menu
+		private CustomItem m11;//New
+		private CustomItem m12;//Open
+		private CustomItem m13;//Save
+		private CustomItem m14;//save as
+	private JMenu m2;//View menu
+		private CustomItem m21;//Word warp
+		private CustomItem m22;//Help in future
+	protected JMenu m3;//Open files menu
+		protected List<Space> files= new ArrayList<Space>();;//list of menu items for files open
+		
 	public JTextArea ta;
 	
 	JScrollPane scroll;
 	
-	public FileHand curF = null;
+	public int curFile = 0;//File handling will need a massive change for the mutliple file tabs thing. Maybe make this an array?
 	public final JFileChooser fc = new JFileChooser();
 	public Gui() {//Creates the window
 		frame = new JFrame("bText");//Window
@@ -34,21 +37,29 @@ public class Gui implements ActionListener{
 	    mb = new JMenuBar();//Menu bar
         m1 = new JMenu("File");
         m2 = new JMenu("View");
+        m3 = new JMenu("Tabs");
         mb.add(m1);
         mb.add(m2);
-        m11 = new JMenuItem("Open");
-        m12 = new JMenuItem("Save");
-        m13 = new JMenuItem("Save As");
-        m21 = new JMenuItem("Word Warp Off");
+        mb.add(m3);
+        m11 = new CustomItem("New");
+        m12 = new CustomItem("Open");
+        m13 = new CustomItem("Save");
+        m14 = new CustomItem("Save As");
+        m21 = new CustomItem("Word Warp Off");
+        m22 = new CustomItem("Help");
         m1.add(m11);
         m1.add(m12);
         m1.add(m13);
+        m1.add(m14);
         m2.add(m21);
+        m2.add(m22);
         
         m11.addActionListener(this);
         m12.addActionListener(this);
         m13.addActionListener(this);
+        m14.addActionListener(this);
         m21.addActionListener(this);
+        m22.addActionListener(this);
         
         ta = new JTextArea();//text area
         ta.setLineWrap(true);
@@ -66,29 +77,25 @@ public class Gui implements ActionListener{
 	@Override//Action Handler
 	public void actionPerformed(ActionEvent e) {
 		String com = e.getActionCommand();
-		
-		if(com =="Open") {//Open file
-            curF = new FileHand(fc, null);
-            if(curF.file != null) {//If they selected a file
-	            String out = curF.open();
-	            if(out == null) {
-	            	JOptionPane.showMessageDialog(null, "Opening failed, check file permissions");
-	            }else {
-	            	ta.setText(out);//Set text from file
-	            }
-            }else {
-            	curF = null;
-            }
-	       
+		CustomItem sou = (CustomItem) e.getSource();
+		if(sou.val != -1 && sou.val != curFile) {
+			files.get(curFile).text = ta.getText();
+			
+			curFile = sou.val;
+			ta.setText(files.get(curFile).text);
+		}else if(com == "New") {
+			Common.newFile();
+		}
+		else if(com =="Open") {//Open file
+			Common.open();          
 		}else if(com == "Save") {//Save file
-			if(curF != null) {
-	            if(!curF.save(ta.getText())) {
-	            	JOptionPane.showMessageDialog(null, "Saving failed, check file permissions");
-	            }else {
-	            	JOptionPane.showMessageDialog(null, "Saved successfully");
-	            }
+			System.out.print("1");
+			if(files.get(curFile).f.name != null) {
+				System.out.print("2");
+				Common.save();
 			}else {
-				com = "Save As";//If they didn't open a file, goes to save as
+				System.out.print("3");
+				Common.saveAs();
 			}
 		}
 		else if(com =="Word Warp Off") {//Word warp off
@@ -100,17 +107,16 @@ public class Gui implements ActionListener{
 			ta.setLineWrap(true);
 			ta.setWrapStyleWord(true);
 			m21.setText("Word Warp Off");	    
+		}else if(com == "Help") {
+			JFrame helpF = new JFrame();
+			helpF.pack();//fucking warnings
+			//Need to write help docs, but cba
 		}
 		
 		if(com =="Save As") {//Save as file
-            FileHand fh = new FileHand(fc, null);
-            if(fh.file != null) {//If they selected a file
-	            if(!fh.save(ta.getText())) {
-	            	JOptionPane.showMessageDialog(null, "Saving failed, check file permissions");
-	            }else {
-	            	JOptionPane.showMessageDialog(null, "Saved successfully");
-	            }
-            }
+			Common.saveAs();
 		}
+		
+
 	}
 }
