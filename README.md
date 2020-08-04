@@ -8,8 +8,6 @@ Coming in Version 2:
   
   -Open a file from command line or using "open with"
   
-  -Redo, undo
-  
 ----
 Current Features:
 
