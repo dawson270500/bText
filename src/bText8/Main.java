@@ -2,11 +2,16 @@ package bText8;//Just class starter, doesn't do anything else
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
 public class Main {
-	static Gui win;
+	public static Gui win;
+	
+	
+	//private static String curWord = "";
+	//private static ArrayList<String> words = new ArrayList<String>();
 	
 	public static void main(String args[]) {
 		win = new Gui();
@@ -29,7 +34,8 @@ public class Main {
 		
 	        @SuppressWarnings("deprecation")
 			@Override
-	        public void keyPressed(KeyEvent e) {	        	
+	        public void keyPressed(KeyEvent e) {	
+	        	       	        	
 	            if ((e.getKeyCode() == KeyEvent.VK_S) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {//Save keybind
 	            	if(win.files.get(win.curFile).f.name == null) {
 	    				Common.saveAs();
@@ -46,13 +52,22 @@ public class Main {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				// TODO Auto-generated method stub
-				
 			}
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-					
+				/* TODO Is gonna be undo. I literally have no clue how to make it work right now
+				if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+	        		
+	        	}else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE){
+	        		if(curWord != "") {
+	        		curWord = curWord.substring(0, curWord.length() - 1);
+	        		}else {
+	        			curWord = words.get(words.size()-1);
+	        		}
+	        	}else if(!((e.getKeyCode() == KeyEvent.VK_S) && !((e.getModifiers() & KeyEvent.CTRL_MASK) != 0) && !((e.getKeyCode() == KeyEvent.VK_O) && !((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) && !((e.getKeyCode() == KeyEvent.VK_N) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)))){
+	        		curWord += e.getKeyChar();
+	           	}*/
 			}
 
 		});

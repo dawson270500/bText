@@ -50,7 +50,7 @@ public class Space {
 		return false;
 		
 	}
-	boolean save(String s) {
+	public boolean save(String s) {
 		return f.save(s);
 	}
 }

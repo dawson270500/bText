@@ -3,10 +3,13 @@ package bText8;//Gui class
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
+import javax.swing.text.EditorKit;
+import javax.swing.text.html.HTMLEditorKit;
 
 public class Gui implements ActionListener{
 	protected JFrame frame;//window 
@@ -23,11 +26,11 @@ public class Gui implements ActionListener{
 	protected JMenu m3;//Open files menu
 		protected List<Space> files= new ArrayList<Space>();;//list of menu items for files open
 		
-	public JTextArea ta;
+	protected JTextArea ta;
 	
 	JScrollPane scroll;
 	
-	public int curFile = 0;//File handling will need a massive change for the mutliple file tabs thing. Maybe make this an array?
+	protected int curFile = 0;//File handling will need a massive change for the mutliple file tabs thing. Maybe make this an array?
 	public final JFileChooser fc = new JFileChooser();
 	public Gui() {//Creates the window
 		frame = new JFrame("bText");//Window
@@ -108,8 +111,18 @@ public class Gui implements ActionListener{
 			ta.setWrapStyleWord(true);
 			m21.setText("Word Warp Off");	    
 		}else if(com == "Help") {
-			JFrame helpF = new JFrame();
-			helpF.pack();//fucking warnings
+			JFrame helpF = new JFrame("Help");
+			helpF.setSize(200, 200);
+			JEditorPane helpText;
+			helpText = new JEditorPane();
+			helpText.setText("!DOCTYPE html"
+					+ "<html><body>GAMER</body></html>");
+			helpText.setEditorKit(new HTMLEditorKit());
+			helpText.setEditable(false);
+			helpF.add(helpText);
+			helpF.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			helpF.setVisible(true);
+			//fucking warnings
 			//Need to write help docs, but cba
 		}
 		
