@@ -2,7 +2,7 @@ package bText8;//Just class starter, doesn't do anything else
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
+import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
@@ -21,6 +21,7 @@ public class Main {
 				win.ta.setText(win.files.get(win.curFile).text);
 				win.m3.add(win.files.get(win.curFile).menuItem);
 				win.files.get(win.curFile).menuItem.addActionListener(win);
+				win.frame.setTitle("bText - " + win.files.get(win.curFile).f.name);
 			}else {
 				JOptionPane.showMessageDialog(null, "Opening failed, check file permissions");
 			}

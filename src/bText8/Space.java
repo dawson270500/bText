@@ -36,18 +36,22 @@ public class Space {
 		text = "";
 			
 		f = new FileHand();
-		menuItem = new CustomItem("Untitled", x);
+		menuItem = new CustomItem("- Untitled -", x);
 	}
 	
-	boolean save(String s, JFileChooser fc) {
-		int returnVal = fc.showOpenDialog(null);
+	int save(String s, JFileChooser fc) {
+		int returnVal = fc.showSaveDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {//If they actually chose one
 	        File file = (File) fc.getSelectedFile();
 			f = new FileHand(file);
 			menuItem.setText(f.name);
-			return f.save(s);
+			Boolean ret = f.save(s);
+			if(ret == true) {
+				return 1;
+			}
+			return -1;
 		}	
-		return false;
+		return 0;
 		
 	}
 	public boolean save(String s) {

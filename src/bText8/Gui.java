@@ -3,13 +3,12 @@ package bText8;//Gui class
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
-import javax.swing.text.EditorKit;
-import javax.swing.text.html.HTMLEditorKit;
+//import javax.swing.text.EditorKit;
+//import javax.swing.text.html.HTMLEditorKit;
 
 public class Gui implements ActionListener{
 	protected JFrame frame;//window 
@@ -33,7 +32,7 @@ public class Gui implements ActionListener{
 	protected int curFile = 0;//File handling will need a massive change for the mutliple file tabs thing. Maybe make this an array?
 	public final JFileChooser fc = new JFileChooser();
 	public Gui() {//Creates the window
-		frame = new JFrame("bText");//Window
+		frame = new JFrame("bText - Untitled");//Window
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    frame.setSize(500,500);
 	    
@@ -83,21 +82,30 @@ public class Gui implements ActionListener{
 		CustomItem sou = (CustomItem) e.getSource();
 		if(sou.val != -1 && sou.val != curFile) {
 			files.get(curFile).text = ta.getText();
+			if(files.get(curFile).f.name != null) {
+				files.get(curFile).menuItem.setText(files.get(curFile).f.name);
+			}else {
+				files.get(curFile).menuItem.setText("Untitled");
+			}
 			
 			curFile = sou.val;
 			ta.setText(files.get(curFile).text);
+			if(files.get(curFile).f.name != null) {
+				files.get(curFile).menuItem.setText("- "+files.get(curFile).f.name+" -");
+				frame.setTitle("bText - "+files.get(curFile).f.name);
+			}else {
+				files.get(curFile).menuItem.setText("- Untitled -");
+				frame.setTitle("bText - Untitled");
+			}
 		}else if(com == "New") {
 			Common.newFile();
 		}
 		else if(com =="Open") {//Open file
 			Common.open();          
 		}else if(com == "Save") {//Save file
-			System.out.print("1");
 			if(files.get(curFile).f.name != null) {
-				System.out.print("2");
 				Common.save();
 			}else {
-				System.out.print("3");
 				Common.saveAs();
 			}
 		}
@@ -111,7 +119,7 @@ public class Gui implements ActionListener{
 			ta.setWrapStyleWord(true);
 			m21.setText("Word Warp Off");	    
 		}else if(com == "Help") {
-			JFrame helpF = new JFrame("Help");
+			/*JFrame helpF = new JFrame("Help");
 			helpF.setSize(200, 200);
 			JEditorPane helpText;
 			helpText = new JEditorPane();
@@ -121,15 +129,14 @@ public class Gui implements ActionListener{
 			helpText.setEditable(false);
 			helpF.add(helpText);
 			helpF.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			helpF.setVisible(true);
-			//fucking warnings
-			//Need to write help docs, but cba
+			helpF.setVisible(true);*/
+			//Need to write help docs
+			
+			JOptionPane.showMessageDialog(null, "Help Docs not done yet");
 		}
 		
 		if(com =="Save As") {//Save as file
 			Common.saveAs();
 		}
-		
-
 	}
 }
