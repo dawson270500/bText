@@ -20,7 +20,7 @@ Current Features:
 ----
 bText is a plain text editor, written in java. It is open source.
 All decent ideas for changes on current actions would be helpful, but I would like to create upcoming features myself.
-[Trello](https://trello.com/b/H8AhT1rf/btext "View Trello)
+[Trello](https://trello.com/b/H8AhT1rf/btext "View Trello")
 
 ----
 Wanna Support this project, buy me a pint.
