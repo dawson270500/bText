@@ -2,20 +2,22 @@
 Plain Text Editor, Written in Java 8
 
 ----
-Coming in Version 2:
+Coming in Version 2.1:
 
-  -File tabs, allowing more than one file to be open at once
-  
-  -Open a file from command line or using "open with"
+ - Undo
+ 
+ - Better Char set support
   
 ----
 Current Features:
 
-  -Open Files | Open things from the command line by just setting the first agrument as the file location of what you want to open, relactive to current location or overall.
+  - Open Files |  Open a file from command line by typing ```java -jar btext.jar <file>```
   
-  -Save Files
+  - Save Files
   
-  -Word Warp
+  - Word Warp
+  
+  - File tabs, allowing more than one file to be open at once in the same window. switch files use the "Tabs" menu
   
 ----
 bText is a plain text editor, written in java. It is open source.
