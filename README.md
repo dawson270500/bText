@@ -11,7 +11,7 @@ Coming in Version 2:
 ----
 Current Features:
 
-  -Open Files
+  -Open Files | Open things from the command line by just setting the first agrument as the file location of what you want to open, relactive to current location or overall.
   
   -Save Files
   

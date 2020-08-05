@@ -1,62 +1,74 @@
-package bText8;//Just class starter, doesnt do anything else
+package bText8;//Just class starter, doesn't do anything else
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
 public class Main {
-	private static Gui win;
+	public static Gui win;
+	
+	
+	//private static String curWord = "";
+	//private static ArrayList<String> words = new ArrayList<String>();
 	
 	public static void main(String args[]) {
 		win = new Gui();
+		if(args.length > 0) {
+			win.files.add(new Space(args[0],0));
+			if(win.files.get(win.curFile).text != null) {
+				win.ta.setText(win.files.get(win.curFile).text);
+				win.m3.add(win.files.get(win.curFile).menuItem);
+				win.files.get(win.curFile).menuItem.addActionListener(win);
+				win.frame.setTitle("bText - " + win.files.get(win.curFile).f.name);
+			}else {
+				JOptionPane.showMessageDialog(null, "Opening failed, check file permissions");
+			}
+		}else {
+			win.files.add(new Space(0));
+			win.ta.setText(win.files.get(win.curFile).text);
+			win.m3.add(win.files.get(win.curFile).menuItem);
+			win.files.get(win.curFile).menuItem.addActionListener(win);
+		}
 		  win.ta.addKeyListener(new KeyListener() {
 		
 	        @SuppressWarnings("deprecation")
 			@Override
-	        public void keyPressed(KeyEvent e) {
+	        public void keyPressed(KeyEvent e) {	
+	        	       	        	
 	            if ((e.getKeyCode() == KeyEvent.VK_S) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {//Save keybind
-	            	if(win.curF != null) {//Save file open
-		            	if(!win.curF.save(win.ta.getText())) {
-		                	JOptionPane.showMessageDialog(null, "Saving failed, check file permissions");
-		                }else {
-		                	JOptionPane.showMessageDialog(null, "Saved successfully");
-		                }
-	            	}else {//Save as
-        	            FileHand fh = new FileHand(win.fc);
-        	            if(fh.file != null){//If they selected a file
-	        	            if(!fh.save(win.ta.getText())) {
-	        	            	JOptionPane.showMessageDialog(null, "Saving failed, check file permissions");
-	        	            }else {
-	        	            	JOptionPane.showMessageDialog(null, "Saved successfully");
-	        	            }
-        	            }
-	            	}
+	            	if(win.files.get(win.curFile).f.name == null) {
+	    				Common.saveAs();
+	    			}else {
+	    				Common.save();
+	    			}
 		        }else if ((e.getKeyCode() == KeyEvent.VK_O) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {//Open keybind
-		            win.curF = new FileHand(win.fc);
-		            if(win.curF.file != null) {//If they selected a file
-			            String out = win.curF.open();
-			            if(out == null) {
-			            	JOptionPane.showMessageDialog(null, "Opening failed, check file permissions");
-			            }else {
-			            	win.ta.setText(out);
-			            }
-		            }else {
-		            	win.curF = null;
-		            }
+		           Common.open();
+		        }else if ((e.getKeyCode() == KeyEvent.VK_N) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {//Open keybind
+		        	Common.newFile();
 		        }
 	        }
 
 			@Override
 			public void keyTyped(KeyEvent e) {
 				// TODO Auto-generated method stub
-				
 			}
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-					
+				/* TODO Is gonna be undo. I literally have no clue how to make it work right now
+				if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+	        		
+	        	}else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE){
+	        		if(curWord != "") {
+	        		curWord = curWord.substring(0, curWord.length() - 1);
+	        		}else {
+	        			curWord = words.get(words.size()-1);
+	        		}
+	        	}else if(!((e.getKeyCode() == KeyEvent.VK_S) && !((e.getModifiers() & KeyEvent.CTRL_MASK) != 0) && !((e.getKeyCode() == KeyEvent.VK_O) && !((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) && !((e.getKeyCode() == KeyEvent.VK_N) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)))){
+	        		curWord += e.getKeyChar();
+	           	}*/
 			}
 
 		});
