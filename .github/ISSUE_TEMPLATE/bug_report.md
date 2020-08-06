@@ -7,26 +7,23 @@ assignees: ''
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+Report a bug using this template, if you dont have a github account you can do it on the Trello as well.
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+All spelling mistakes in documentation or anything, please report them on the trello. Comment on any of the docs cards. thx
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+```
+Bug Title: 
+Bug Type(UI/Feature):
+Description of Bug:
+How to recreate: 
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+Link to Screenshot(Imgur or whatever):
 
-**Computer Base (please complete the following information):**
- - OS: [e.g. Ubuntu]
- - CPU: [e.g. Intel i5 6600k]
- - Java Version you use: [e.g. openJDK 1.8]
+System Info(Optional)
+  - OS: 
+  - CPU
+  - RAM: 
+  - Java:
 
-**Additional context**
-Add any other context about the problem here.
+Anything else:
+```
