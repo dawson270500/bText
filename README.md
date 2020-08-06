@@ -25,6 +25,10 @@ All decent ideas for changes on current actions would be helpful, but I would li
 
 [Trello](https://trello.com/b/H8AhT1rf/btext "View Trello")
 
+[Documentation](https://docs.google.com/document/d/162UEOJqRGCtcUkI2ht20qPygRu3Jv76S7ke7Tei2row/edit?usp=sharing "View Docs/Plugin Guide")
+
+The Documentation also includes a guide on how to add plugins and how to make them communicate with the program properly.
+
 ----
 Wanna Support this project, buy me a pint.
 
