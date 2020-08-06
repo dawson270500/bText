@@ -14,4 +14,5 @@ Suggestions Title:
 Type of Change(UI/Feature):
 Description of Change:
 Reason you want this: 
+Design of UI(Optional)(Img link pls): 
 ```
