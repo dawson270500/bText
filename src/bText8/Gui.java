@@ -1,8 +1,10 @@
 package bText8;//Gui class
 
 import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +25,7 @@ public class Gui implements ActionListener{
 		private CustomItem m21;//Word warp
 		private CustomItem m22;//Help in future
 	protected JMenu m3;//Open files menu
+		protected CustomItem m31;//Close file
 		protected List<Space> files= new ArrayList<Space>();;//list of menu items for files open
 		
 	protected JTextArea ta;
@@ -49,12 +52,14 @@ public class Gui implements ActionListener{
         m14 = new CustomItem("Save As");
         m21 = new CustomItem("Word Warp Off");
         m22 = new CustomItem("Help");
+        m31 = new CustomItem("Close File", -2);
         m1.add(m11);
         m1.add(m12);
         m1.add(m13);
         m1.add(m14);
         m2.add(m21);
         m2.add(m22);
+        m3.add(m31);
         
         m11.addActionListener(this);
         m12.addActionListener(this);
@@ -62,6 +67,7 @@ public class Gui implements ActionListener{
         m14.addActionListener(this);
         m21.addActionListener(this);
         m22.addActionListener(this);
+        m31.addActionListener(this);
         
         ta = new JTextArea();//text area
         ta.setLineWrap(true);
@@ -70,7 +76,7 @@ public class Gui implements ActionListener{
         scroll = new JScrollPane(ta); //Scrollbar
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        
+ 
 	    frame.getContentPane().add(BorderLayout.NORTH, mb); //Adds everything to the window
 	    frame.getContentPane().add(BorderLayout.CENTER, scroll);
 	    frame.setVisible(true);
@@ -80,22 +86,24 @@ public class Gui implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		String com = e.getActionCommand();
 		CustomItem sou = (CustomItem) e.getSource();
-		if(sou.val != -1 && sou.val != curFile) {
+		if(sou.val >= 0&& sou.val != curFile) {
 			files.get(curFile).text = ta.getText();
-			if(files.get(curFile).f.name != null) {
-				files.get(curFile).menuItem.setText(files.get(curFile).f.name);
-			}else {
-				files.get(curFile).menuItem.setText("Untitled");
-			}
+			files.get(curFile).unsetSelected();
 			
 			curFile = sou.val;
 			ta.setText(files.get(curFile).text);
-			if(files.get(curFile).f.name != null) {
-				files.get(curFile).menuItem.setText("- "+files.get(curFile).f.name+" -");
-				frame.setTitle("bText - "+files.get(curFile).f.name);
-			}else {
-				files.get(curFile).menuItem.setText("- Untitled -");
-				frame.setTitle("bText - Untitled");
+			files.get(curFile).setSelected();
+		}else if(sou.val == -2){
+			if((files.size()-1) != 0) {
+				m3.remove(files.get(curFile).menuItem);
+				files.remove(curFile);
+				curFile = 0;
+				ta.setText(files.get(curFile).text);
+				files.get(curFile).setSelected();
+			}else{
+				m3.remove(files.get(curFile).menuItem);
+				files.remove(curFile);
+				Common.newFile();
 			}
 		}else if(com == "New") {
 			Common.newFile();
@@ -119,20 +127,13 @@ public class Gui implements ActionListener{
 			ta.setWrapStyleWord(true);
 			m21.setText("Word Warp Off");	    
 		}else if(com == "Help") {
-			/*JFrame helpF = new JFrame("Help");
-			helpF.setSize(200, 200);
-			JEditorPane helpText;
-			helpText = new JEditorPane();
-			helpText.setText("!DOCTYPE html"
-					+ "<html><body>GAMER</body></html>");
-			helpText.setEditorKit(new HTMLEditorKit());
-			helpText.setEditable(false);
-			helpF.add(helpText);
-			helpF.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			helpF.setVisible(true);*/
-			//Need to write help docs
-			
-			JOptionPane.showMessageDialog(null, "Help Docs not done yet");
+			if(JOptionPane.showConfirmDialog(null, "This requires an internet connection, is that okay", null, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+				try {
+		        	Desktop.getDesktop().browse(new URL("https://github.com/dawson270500/bText/blob/master/HelpDoc.md").toURI());
+		    	} catch (Exception e1) {
+		        	e1.printStackTrace();
+		    	}
+			}
 		}
 		
 		if(com =="Save As") {//Save as file

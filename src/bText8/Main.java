@@ -2,7 +2,6 @@ package bText8;//Just class starter, doesn't do anything else
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.IOException;
 
 import javax.swing.JOptionPane;
 

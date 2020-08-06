@@ -12,7 +12,7 @@ public class Space {
 	
 	Space(String args, int x){		
 		f = new FileHand(args);
-		String text  = f.open();
+		text  = f.open();
 		if(text != null) {
 			menuItem = new CustomItem(f.name, x);
 		}
@@ -23,7 +23,7 @@ public class Space {
 		if (returnVal == JFileChooser.APPROVE_OPTION) {//If they actually chose one
 	        File file = (File) fc.getSelectedFile();
 			f = new FileHand(file);
-			String text  = f.open();
+			text  = f.open();
 			if(text != null) {
 				menuItem = new CustomItem(f.name, x);
 			}
@@ -37,6 +37,23 @@ public class Space {
 			
 		f = new FileHand();
 		menuItem = new CustomItem("- Untitled -", x);
+	}
+	
+	void setSelected() {
+		if(f.name != null) {
+			menuItem.setText("- "+f.name+" -");
+			Main.win.frame.setTitle("bText - " + f.name);
+		}else {
+			menuItem.setText("- Untitled -");
+			Main.win.frame.setTitle("bText - Untitled");
+		}
+	}
+	void unsetSelected() {
+		if(f.name != null) {
+			menuItem.setText(f.name);
+		}else {
+			menuItem.setText("Untitled");
+		}
 	}
 	
 	int save(String s, JFileChooser fc) {
