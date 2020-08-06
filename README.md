@@ -1,7 +1,7 @@
 # bText
 Plain Text Editor, Written in Java 8.
 
-This requires Java to run, if you want to install java follow [this guide](https://trello.com/b/H8AhT1rf/btext)
+This requires Java to run, if you need to install java follow [this guide](https://trello.com/b/H8AhT1rf/btext)
 
 ----
 Coming in Version 2.1:
