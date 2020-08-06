@@ -35,5 +35,4 @@ Wanna Support this project, buy me a pint.
 It will really help out doing so, Im a poor uni student so money is tight and it allows me to spend time doing this rather than working, [Click here](https://www.buymeacoffee.com/dawson270500 "Buy me a Pint")
 
 ----
-bText was Written by Bailey Dawson | All credits on code reuse must go to him
-Copyright Bailey Dawson 2020
+bText was Written by Bailey Dawson | All credits on code reuse must go to him | Copyright Bailey Dawson 2020
