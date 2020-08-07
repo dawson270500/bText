@@ -1,7 +1,16 @@
 bText Help
 --
 
-Plain text editor written in Java
+A Plain text editor written in Java
+
+----
+Installing Java:
+
+On windows or mac, go to [here](https://java.com/en/download/)
+
+On linux, install it from your distros package manager e.g. apt, pacman
+
+Install the OpenJDK-jre for the version you want, anything 8 or above will work.
 
 ----
 Command Line Usage: ```java -jar btext.jar <optional file to open>```
