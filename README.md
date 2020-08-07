@@ -1,4 +1,5 @@
 bText
+--
 
 A Plain Text Editor, Written in Java 8.
 
