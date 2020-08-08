@@ -8,20 +8,20 @@ This requires Java to run, if you need to install java check the [Help Doc](http
 ----
 Coming in Version 2.1:
 
-Undo
+ - Undo
 
-Better Char set support
+ - Better Char set support
 
 ----
 Current Features:
 
-Open Files | Open a file from command line by typing java -jar btext.jar <file> or use the keybind ctrl + o
+ - Open Files | Open a file from command line by typing java -jar btext.jar <file> or use the keybind ctrl + o
 
-Save Files | The keybind to save is ctrl + s
+ - Save Files | The keybind to save is ctrl + s
 
-Word Warp | Turn it on/off in the view menu
+ - Word Warp | Turn it on/off in the view menu
 
-File tabs, allowing more than one file to be open at once in the same window. Switch the file you are on in the "Tabs" menu, the selected file will look like this in there "- <name> -"
+ - File tabs, allowing more than one file to be open at once in the same window. Switch the file you are on in the "Tabs" menu, the selected file will look like this in there "- [name] -"
 
 ----
 bText is a plain text editor, written in java. It is open source. All decent ideas for changes on current actions would be helpful, but I would like to create upcoming features myself.
