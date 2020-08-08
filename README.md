@@ -21,7 +21,7 @@ Save Files | The keybind to save is ctrl + s
 
 Word Warp | Turn it on/off in the view menu
 
-File tabs, allowing more than one file to be open at once in the same window. Switch the file you are on in the "Tabs" menu, the selected file will look like this in there "- -"
+File tabs, allowing more than one file to be open at once in the same window. Switch the file you are on in the "Tabs" menu, the selected file will look like this in there "- <name> -"
 
 ----
 bText is a plain text editor, written in java. It is open source. All decent ideas for changes on current actions would be helpful, but I would like to create upcoming features myself.
