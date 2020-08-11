@@ -27,6 +27,11 @@ public class Gui implements ActionListener{
 	protected JMenu m3;//Open files menu
 		protected CustomItem m31;//Close file
 		protected List<Space> files= new ArrayList<Space>();;//list of menu items for files open
+	protected JMenu m4;
+		protected CustomItem m41;
+		protected CustomItem m42;
+		protected CustomItem m43;
+		protected CustomItem m44;
 		
 	protected JTextArea ta;
 	
@@ -39,27 +44,40 @@ public class Gui implements ActionListener{
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    frame.setSize(500,500);
 	    
+	    
+	    //Anything with a minus uses the new flag system, everything will be changed over soon enough
 	    mb = new JMenuBar();//Menu bar
-        m1 = new JMenu("File");
-        m2 = new JMenu("View");
-        m3 = new JMenu("Tabs");
-        mb.add(m1);
-        mb.add(m2);
-        mb.add(m3);
-        m11 = new CustomItem("New");
-        m12 = new CustomItem("Open");
-        m13 = new CustomItem("Save");
-        m14 = new CustomItem("Save As");
-        m21 = new CustomItem("Word Warp Off");
-        m22 = new CustomItem("Help");
-        m31 = new CustomItem("Close File", -2);
-        m1.add(m11);
-        m1.add(m12);
-        m1.add(m13);
-        m1.add(m14);
-        m2.add(m21);
-        m2.add(m22);
-        m3.add(m31);
+        m1 = new JMenu("File");//File menu
+	        m11 = new CustomItem("New");
+	        m12 = new CustomItem("Open");
+	        m13 = new CustomItem("Save");
+	        m14 = new CustomItem("Save As");
+        m2 = new JMenu("View");//View menu
+        	m21 = new CustomItem("Word Warp Off");
+        	m22 = new CustomItem("Help");
+        m3 = new JMenu("Tabs");//tabs menu
+        	m31 = new CustomItem("Close File", -2);
+        m4 = new JMenu("Charset");//charset select, works on a file by file basis
+        	m41 = new CustomItem("UTF-8", -10);
+        	m42 = new CustomItem("US-ASCII", -10);
+        	m43 = new CustomItem("ISO-8859", -10);
+        	m44 = new CustomItem("UTF-16", -10);
+        //add them in the order you wish to see them
+        mb.add(m1);//File menu
+	        m1.add(m11);
+	        m1.add(m12);
+	        m1.add(m13);
+	        m1.add(m14);
+	    mb.add(m3);//tabs menu
+        	m3.add(m31);
+        mb.add(m2);//view menu
+	        m2.add(m21);
+	        m2.add(m22);
+	    mb.add(m4);//Charset menu
+	    	m4.add(m41);
+	    	m4.add(m42);
+	    	m4.add(m43);
+	    	m4.add(m44);        
         
         m11.addActionListener(this);
         m12.addActionListener(this);
@@ -68,6 +86,11 @@ public class Gui implements ActionListener{
         m21.addActionListener(this);
         m22.addActionListener(this);
         m31.addActionListener(this);
+        m41.addActionListener(this);
+        m42.addActionListener(this);
+        m43.addActionListener(this);
+        m44.addActionListener(this);
+
         
         ta = new JTextArea();//text area
         ta.setLineWrap(true);
@@ -86,14 +109,14 @@ public class Gui implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		String com = e.getActionCommand();
 		CustomItem sou = (CustomItem) e.getSource();
-		if(sou.val >= 0&& sou.val != curFile) {
+		if(sou.val >= 0&& sou.val != curFile) {//change file
 			files.get(curFile).text = ta.getText();
 			files.get(curFile).unsetSelected();
 			
 			curFile = sou.val;
 			ta.setText(files.get(curFile).text);
 			files.get(curFile).setSelected();
-		}else if(sou.val == -2){
+		}else if(sou.val == -2){//close a file
 			if((files.size()-1) != 0) {
 				m3.remove(files.get(curFile).menuItem);
 				files.remove(curFile);
@@ -105,7 +128,9 @@ public class Gui implements ActionListener{
 				files.remove(curFile);
 				Common.newFile();
 			}
-		}else if(com == "New") {
+		}else if(sou.val == -10){
+			
+		}else if(com == "New") {//New file
 			Common.newFile();
 		}
 		else if(com =="Open") {//Open file

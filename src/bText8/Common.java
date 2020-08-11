@@ -1,5 +1,7 @@
 package bText8;
 
+import java.nio.charset.Charset;
+
 import javax.swing.JOptionPane;
 
 public class Common {
@@ -51,6 +53,11 @@ public class Common {
 			}
 			Main.win.curFile = Main.win.files.size()-1;
 		}
+	}
+	
+	public static void openChar(String charset) {
+		Main.win.files.get(Main.win.curFile).f.charset = Charset.forName(charset);;
+		Main.win.files.get(Main.win.curFile).text = Main.win.files.get(Main.win.curFile).f.open();
 	}
 	
 	public static void newFile() {
