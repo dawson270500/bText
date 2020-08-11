@@ -8,10 +8,6 @@ import javax.swing.JOptionPane;
 public class Main {
 	public static Gui win;
 	
-	
-	//private static String curWord = "";
-	//private static ArrayList<String> words = new ArrayList<String>();
-	
 	public static void main(String args[]) {
 		win = new Gui();
 		if(args.length > 0) {
@@ -44,8 +40,19 @@ public class Main {
 	    			}
 		        }else if ((e.getKeyCode() == KeyEvent.VK_O) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {//Open keybind
 		           Common.open();
-		        }else if ((e.getKeyCode() == KeyEvent.VK_N) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {//Open keybind
+		        }else if ((e.getKeyCode() == KeyEvent.VK_N) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {//new keybind
 		        	Common.newFile();
+		        }else if ((e.getKeyCode() == KeyEvent.VK_Z) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {//undo keybind
+		        	if(win.files.get(win.curFile).undoBufffer.size() > 0) {
+			        	win.ta.setText(win.files.get(win.curFile).undoBufffer.get(win.files.get(win.curFile).undoBufffer.size()-1));
+			        	win.files.get(win.curFile).pressCount =0;
+			        	win.files.get(win.curFile).undoBufffer.remove(win.files.get(win.curFile).undoBufffer.size()-1);
+		        	}
+		        }else if(win.files.get(win.curFile).pressCount < 3){
+		        	win.files.get(win.curFile).pressCount += 1;
+		        }else {
+		        	win.files.get(win.curFile).undoBufffer.add(win.ta.getText());
+		        	win.files.get(win.curFile).pressCount = 0;
 		        }
 	        }
 
