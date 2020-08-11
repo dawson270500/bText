@@ -14,7 +14,7 @@ public class Space {
 	protected int pressCount = 0;
 	protected ArrayList<String> undoBufffer = new ArrayList<String>();
 	
-	Space(String args, int x){		
+	Space(String args, int x){	//Opening from command line	
 		f = new FileHand(args);
 		text  = f.open();
 		if(text != null) {
@@ -22,7 +22,7 @@ public class Space {
 		}
 	}
 	
-	Space(JFileChooser fc, int x){
+	Space(JFileChooser fc, int x){//Opening with GUI
 		int returnVal = fc.showOpenDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {//If they actually chose one
 	        File file = (File) fc.getSelectedFile();
@@ -36,14 +36,14 @@ public class Space {
 		}
 	}
 	
-	Space(int x){
+	Space(int x){//Empty file
 		text = "";
 			
 		f = new FileHand();
 		menuItem = new CustomItem("- Untitled -", x);
 	}
 	
-	void setSelected() {
+	void setSelected() {//Set this file as the selected tab
 		if(f.name != null) {
 			menuItem.setText("- "+f.name+" -");
 			Main.win.frame.setTitle("bText - " + f.name);
@@ -52,7 +52,7 @@ public class Space {
 			Main.win.frame.setTitle("bText - Untitled");
 		}
 	}
-	void unsetSelected() {
+	void unsetSelected() {//Unset this file as the selected tab
 		if(f.name != null) {
 			menuItem.setText(f.name);
 		}else {
@@ -60,7 +60,7 @@ public class Space {
 		}
 	}
 	
-	int save(String s, JFileChooser fc) {
+	int save(String s, JFileChooser fc) {//Save as | means you've either selected to save as or are saving an empty file
 		int returnVal = fc.showSaveDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {//If they actually chose one
 	        File file = (File) fc.getSelectedFile();
@@ -75,7 +75,7 @@ public class Space {
 		return 0;
 		
 	}
-	public boolean save(String s) {
+	public boolean save(String s) {//save
 		return f.save(s);
 	}
 }
