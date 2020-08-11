@@ -14,7 +14,7 @@ public class FileHand {
 	protected Path filePath;//Path to the file, used by writer and reader
 	protected String name;
 	
-	private final Charset charset = Charset.forName("US-ASCII");//Character set, ability to change via GUI planned
+	protected Charset charset = Charset.forName("UTF-8");//Character set, ability to change via GUI planned
 	
 	
 	public FileHand(String args) {//Using file provided by CLI

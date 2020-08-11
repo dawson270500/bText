@@ -1,6 +1,7 @@
 package bText8;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 
@@ -9,6 +10,9 @@ public class Space {
 	protected CustomItem menuItem;
 	
 	protected FileHand f;
+	
+	protected int pressCount = 0;
+	protected ArrayList<String> undoBufffer = new ArrayList<String>();
 	
 	Space(String args, int x){		
 		f = new FileHand(args);
