@@ -4,7 +4,7 @@ import javax.swing.JMenuItem;
 
 @SuppressWarnings("serial")
 public class CustomItem extends JMenuItem{
-	int val;
+	int val;//Also just as flags in the menubar
 	CustomItem(String text, int x){
 		super(text);
 		val = x;

@@ -5,6 +5,7 @@ import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,13 +49,13 @@ public class Gui implements ActionListener{
 	    //Anything with a minus uses the new flag system, everything will be changed over soon enough
 	    mb = new JMenuBar();//Menu bar
         m1 = new JMenu("File");//File menu
-	        m11 = new CustomItem("New");
-	        m12 = new CustomItem("Open");
-	        m13 = new CustomItem("Save");
-	        m14 = new CustomItem("Save As");
+	        m11 = new CustomItem("New", -1);
+	        m12 = new CustomItem("Open", -3);
+	        m13 = new CustomItem("Save", -4);
+	        m14 = new CustomItem("Save As", -4);
         m2 = new JMenu("View");//View menu
-        	m21 = new CustomItem("Word Warp Off");
-        	m22 = new CustomItem("Help");
+        	m21 = new CustomItem("Word Warp Off", -5);
+        	m22 = new CustomItem("Help", -6);
         m3 = new JMenu("Tabs");//tabs menu
         	m31 = new CustomItem("Close File", -2);
         m4 = new JMenu("Charset");//charset select, works on a file by file basis
@@ -107,7 +108,6 @@ public class Gui implements ActionListener{
 	
 	@Override//Action Handler
 	public void actionPerformed(ActionEvent e) {
-		String com = e.getActionCommand();
 		CustomItem sou = (CustomItem) e.getSource();
 		if(sou.val >= 0&& sou.val != curFile) {//change file
 			files.get(curFile).text = ta.getText();
@@ -129,29 +129,37 @@ public class Gui implements ActionListener{
 				Common.newFile();
 			}
 		}else if(sou.val == -10){
-			
-		}else if(com == "New") {//New file
+			String com = e.getActionCommand();
+			Common.openChar(com);
+		}else if(sou.val == -1) {//New file
 			Common.newFile();
 		}
-		else if(com =="Open") {//Open file
+		else if(sou.val == -3) {//Open file
 			Common.open();          
-		}else if(com == "Save") {//Save file
-			if(files.get(curFile).f.name != null) {
-				Common.save();
-			}else {
+		}else if(sou.val == -4) {//Save file
+			String com = e.getActionCommand();
+			if(com == "Save") {
+				if(files.get(curFile).f.name != null) {
+					Common.save();
+				}else {
+					Common.saveAs();
+				}
+			}else if(com == "Save As"){
 				Common.saveAs();
 			}
 		}
-		else if(com =="Word Warp Off") {//Word warp off
-			ta.setLineWrap(false);
-			ta.setWrapStyleWord(false);
-			m21.setText("Word Warp On");
-		}
-		else if(com == "Word Warp On") {//word warp on
-			ta.setLineWrap(true);
-			ta.setWrapStyleWord(true);
-			m21.setText("Word Warp Off");	    
-		}else if(com == "Help") {
+		else if(sou.val == -5) {//Word warp off
+			String com = e.getActionCommand();
+			if(com == "Word Warp Off") {
+				ta.setLineWrap(false);
+				ta.setWrapStyleWord(false);
+				m21.setText("Word Warp On");
+			}else if(com == "Word Warp On") {//word warp on
+				ta.setLineWrap(true);
+				ta.setWrapStyleWord(true);
+				m21.setText("Word Warp Off");	
+			}
+		}else if(sou.val == -6) {
 			if(JOptionPane.showConfirmDialog(null, "This requires an internet connection, is that okay", null, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 				try {
 		        	Desktop.getDesktop().browse(new URL("https://github.com/dawson270500/bText/blob/master/HelpDoc.md").toURI());
@@ -159,10 +167,6 @@ public class Gui implements ActionListener{
 		        	e1.printStackTrace();
 		    	}
 			}
-		}
-		
-		if(com =="Save As") {//Save as file
-			Common.saveAs();
 		}
 	}
 }

@@ -28,15 +28,9 @@ public class Common {
 	
 	public static void open() {
 		if(Main.win.files.get(Main.win.curFile).f.name == null) {
-			Main.win.m3.remove(Main.win.files.get(Main.win.curFile).menuItem);
-			Main.win.files.clear();
-			
-			Main.win.files.add(new Space(Main.win.fc, Main.win.curFile));
-			Main.win.m3.add(Main.win.files.get(Main.win.curFile).menuItem);
-			Main.win.files.get(Main.win.curFile).menuItem.addActionListener(Main.win);
-			Main.win.files.get(Main.win.curFile).setSelected();
-			Main.win.frame.setTitle("bText - "+Main.win.files.get(Main.win.curFile).f.name);
-			Main.win.ta.setText(Main.win.files.get(Main.win.curFile).text);
+			if(Main.win.files.get(Main.win.curFile).addFile(Main.win.fc)) {
+				Main.win.ta.setText(Main.win.files.get(Main.win.curFile).text);
+			}
 		}else {
 			Main.win.files.get(Main.win.curFile).text = Main.win.ta.getText();
 			Main.win.files.get(Main.win.curFile).unsetSelected();			
@@ -48,10 +42,10 @@ public class Common {
 				Main.win.files.get(Main.win.curFile).menuItem.addActionListener(Main.win);
 				Main.win.files.get(Main.win.curFile).setSelected();
 				Main.win.frame.setTitle("bText - "+Main.win.files.get(Main.win.curFile).f.name);
+				Main.win.curFile = Main.win.files.size()-1;
 			}else {
 				Main.win.files.remove(Main.win.curFile);
 			}
-			Main.win.curFile = Main.win.files.size()-1;
 		}
 	}
 	
@@ -65,7 +59,6 @@ public class Common {
 			Main.win.files.get(Main.win.curFile).text = Main.win.ta.getText();
 			Main.win.files.get(Main.win.curFile).unsetSelected();
 			Main.win.curFile = Main.win.files.size()-1;
-			Main.win.curFile += 1;
 		}
 		Main.win.files.add(new Space(Main.win.curFile));
 		Main.win.ta.setText("");
