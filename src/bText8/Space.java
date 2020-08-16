@@ -1,5 +1,7 @@
 package bText8;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -14,37 +16,39 @@ public class Space {
 	protected int pressCount = 0;
 	protected ArrayList<String> undoBufffer = new ArrayList<String>();
 	
-	Space(String args, int x){		
+	Space(String args, int x){	//Opening from command line	
 		f = new FileHand(args);
 		text  = f.open();
 		if(text != null) {
-			menuItem = new CustomItem(f.name, x);
+			menuItem = new CustomItem(f.name, 0);
+			menuItem.addActionListener(Main.win);
 		}
 	}
 	
-	Space(JFileChooser fc, int x){
+	Space(JFileChooser fc, int x){//Opening with GUI
 		int returnVal = fc.showOpenDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {//If they actually chose one
 	        File file = (File) fc.getSelectedFile();
 			f = new FileHand(file);
 			text  = f.open();
 			if(text != null) {
-				menuItem = new CustomItem(f.name, x);
+				menuItem = new CustomItem(f.name, 0);
+				menuItem.addActionListener(Main.win);
 			}
 		}else {
 			menuItem = null;
 		}
 	}
 	
-	Space(int x){
+	Space(int x){//Empty file
 		text = "";
 			
-		f = new FileHand();
-		menuItem = new CustomItem("- Untitled -", x);
+		f = null;
+		menuItem = new CustomItem("- Untitled -", 0);
 	}
 	
-	void setSelected() {
-		if(f.name != null) {
+	void setSelected() {//Set this file as the selected tab
+		if(f != null) {
 			menuItem.setText("- "+f.name+" -");
 			Main.win.frame.setTitle("bText - " + f.name);
 		}else {
@@ -52,20 +56,34 @@ public class Space {
 			Main.win.frame.setTitle("bText - Untitled");
 		}
 	}
-	void unsetSelected() {
-		if(f.name != null) {
+	void unsetSelected() {//Unset this file as the selected tab
+		if(f != null) {
 			menuItem.setText(f.name);
 		}else {
 			menuItem.setText("Untitled");
 		}
 	}
 	
-	int save(String s, JFileChooser fc) {
+	Boolean addFile(JFileChooser fc) {
+		int returnVal = fc.showOpenDialog(null);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {//If they actually chose one
+	        File file = (File) fc.getSelectedFile();
+			f = new FileHand(file);
+			menuItem.setText("- "+f.name+" -");
+			Main.win.frame.setTitle("bText - "+f.name);
+			text = f.open();
+			return true;
+		}
+		return false;
+	}
+	
+	int save(String s, JFileChooser fc) {//Save as | means you've either selected to save as or are saving an empty file
 		int returnVal = fc.showSaveDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {//If they actually chose one
 	        File file = (File) fc.getSelectedFile();
 			f = new FileHand(file);
-			menuItem.setText(f.name);
+			menuItem.setText("- "+f.name+" -");
+			Main.win.frame.setTitle("bText - "+f.name);
 			Boolean ret = f.save(s);
 			if(ret == true) {
 				return 1;
@@ -75,7 +93,7 @@ public class Space {
 		return 0;
 		
 	}
-	public boolean save(String s) {
+	public boolean save(String s) {//save
 		return f.save(s);
 	}
 }

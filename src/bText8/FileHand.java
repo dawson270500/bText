@@ -8,6 +8,8 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import javax.swing.JFileChooser;
+
 public class FileHand {
 	
 	protected File file = null;//Holds file details, e.g. meta data
@@ -55,7 +57,7 @@ public class FileHand {
 		}
 		return ret;
 	}
-	
+		
 	public boolean save(String out) {
 		try (BufferedWriter writer = Files.newBufferedWriter(filePath, charset)) {//writer
 		    writer.write(out, 0, out.length());
