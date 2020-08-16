@@ -36,6 +36,7 @@ Keybinds
  - Ctrl + O - Opens a file
  - Ctrl + S - Save current file
  - Ctrl + Z - Undo
+ - Ctrl + Q - Quit
 
 ----
 Misc
