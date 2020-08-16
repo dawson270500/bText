@@ -109,42 +109,55 @@ public class Gui implements ActionListener{
 	@Override//Action Handler
 	public void actionPerformed(ActionEvent e) {
 		CustomItem sou = (CustomItem) e.getSource();
-		if(sou.val >= 0&& sou.val != curFile) {//change file
-			files.get(curFile).text = ta.getText();
-			files.get(curFile).unsetSelected();
+		if(sou.val == 0) {
+			for(int i = 0; i < files.size(); i++) {
+				if(sou.getText() == files.get(i).menuItem.getText()) {
+					files.get(curFile).unsetSelected();
+					files.get(i).setSelected();
+					files.get(curFile).text = ta.getText();
+					curFile = i;
+					ta.setText(files.get(curFile).text);
+				}
+			}
+		}
+		if(sou.val == -2){//close a file
+			System.out.print("1");
 			
-			curFile = sou.val;
-			ta.setText(files.get(curFile).text);
-			files.get(curFile).setSelected();
-		}else if(sou.val == -2){//close a file
-			if((files.size()-1) != 0) {
-				m3.remove(files.get(curFile).menuItem);
-				files.remove(curFile);
-				curFile = 0;
-				ta.setText(files.get(curFile).text);
-				files.get(curFile).setSelected();
-			}else{
+			if(files.size() == 1) {
 				m3.remove(files.get(curFile).menuItem);
 				files.remove(curFile);
 				Common.newFile();
+				ta.setText("");
+			}else {
+				System.out.print("Selected " + curFile + "\n");
+				m3.remove(files.get(curFile).menuItem);
+				files.remove(curFile);
+				curFile = 0;
+				ta.setText(files.get(0).text);
+				files.get(0).setSelected();
 			}
-		}else if(sou.val == -10){
+		}else if(sou.val == -10){//Change charset
 			String com = e.getActionCommand();
+			
 			Common.openChar(com);
 		}else if(sou.val == -1) {//New file
 			Common.newFile();
 		}
 		else if(sou.val == -3) {//Open file
+			files.get(curFile).text = ta.getText();
 			Common.open();          
 		}else if(sou.val == -4) {//Save file
 			String com = e.getActionCommand();
 			if(com == "Save") {
-				if(files.get(curFile).f.name != null) {
+				if(files.get(curFile).f != null) {
+					files.get(curFile).text = ta.getText();
 					Common.save();
 				}else {
+					files.get(curFile).text = ta.getText();
 					Common.saveAs();
 				}
 			}else if(com == "Save As"){
+				files.get(curFile).text = ta.getText();
 				Common.saveAs();
 			}
 		}

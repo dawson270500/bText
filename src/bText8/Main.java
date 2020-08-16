@@ -33,7 +33,7 @@ public class Main {
 	        public void keyPressed(KeyEvent e) {	
 	        	       	        	
 	            if ((e.getKeyCode() == KeyEvent.VK_S) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {//Save keybind
-	            	if(win.files.get(win.curFile).f.name == null) {
+	            	if(win.files.get(win.curFile).f == null) {
 	    				Common.saveAs();
 	    			}else {
 	    				Common.save();
@@ -48,7 +48,9 @@ public class Main {
 			        	win.files.get(win.curFile).pressCount =0;
 			        	win.files.get(win.curFile).undoBufffer.remove(win.files.get(win.curFile).undoBufffer.size()-1);
 		        	}
-		        }else if(win.files.get(win.curFile).pressCount < 3){
+		        }else if ((e.getKeyCode() == KeyEvent.VK_Q) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)){
+		        	System.exit(0);
+	        	}else if(win.files.get(win.curFile).pressCount < 3){
 		        	win.files.get(win.curFile).pressCount += 1;
 		        }else {
 		        	win.files.get(win.curFile).undoBufffer.add(win.ta.getText());

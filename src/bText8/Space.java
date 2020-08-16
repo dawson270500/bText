@@ -1,5 +1,7 @@
 package bText8;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -18,7 +20,8 @@ public class Space {
 		f = new FileHand(args);
 		text  = f.open();
 		if(text != null) {
-			menuItem = new CustomItem(f.name, x);
+			menuItem = new CustomItem(f.name, 0);
+			menuItem.addActionListener(Main.win);
 		}
 	}
 	
@@ -29,7 +32,8 @@ public class Space {
 			f = new FileHand(file);
 			text  = f.open();
 			if(text != null) {
-				menuItem = new CustomItem(f.name, x);
+				menuItem = new CustomItem(f.name, 0);
+				menuItem.addActionListener(Main.win);
 			}
 		}else {
 			menuItem = null;
@@ -39,12 +43,12 @@ public class Space {
 	Space(int x){//Empty file
 		text = "";
 			
-		f = new FileHand();
-		menuItem = new CustomItem("- Untitled -", x);
+		f = null;
+		menuItem = new CustomItem("- Untitled -", 0);
 	}
 	
 	void setSelected() {//Set this file as the selected tab
-		if(f.name != null) {
+		if(f != null) {
 			menuItem.setText("- "+f.name+" -");
 			Main.win.frame.setTitle("bText - " + f.name);
 		}else {
@@ -53,7 +57,7 @@ public class Space {
 		}
 	}
 	void unsetSelected() {//Unset this file as the selected tab
-		if(f.name != null) {
+		if(f != null) {
 			menuItem.setText(f.name);
 		}else {
 			menuItem.setText("Untitled");

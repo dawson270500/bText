@@ -57,8 +57,7 @@ public class FileHand {
 		}
 		return ret;
 	}
-	
-	
+		
 	public boolean save(String out) {
 		try (BufferedWriter writer = Files.newBufferedWriter(filePath, charset)) {//writer
 		    writer.write(out, 0, out.length());
