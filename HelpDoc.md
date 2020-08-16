@@ -3,6 +3,18 @@
 A Plain text editor written in Java
 
 ----
+Requirements
+-
+
+  - Supported OS's | Windows XP or newer, Any Distro of Linux with Java Support. Mac should work but is not supported officialy
+  
+  - CPU | OS's Minium CPU requirement
+  
+  - Ram | 4gb
+  
+  - Other | JavaSE 8 or higher, see Installing Java for help getting it.
+
+----
 Installing Java
 -
 
