@@ -27,17 +27,14 @@ public class Common {
 	}
 	
 	public static void open() {
-		if(Main.win.files.get(Main.win.curFile).f.name == null) {
-			Main.win.m3.remove(Main.win.files.get(Main.win.curFile).menuItem);
-			Main.win.files.clear();
-			
-			Main.win.files.add(new Space(Main.win.fc, Main.win.curFile));
-			Main.win.m3.add(Main.win.files.get(Main.win.curFile).menuItem);
-			Main.win.files.get(Main.win.curFile).menuItem.addActionListener(Main.win);
-			Main.win.files.get(Main.win.curFile).setSelected();
-			Main.win.frame.setTitle("bText - "+Main.win.files.get(Main.win.curFile).f.name);
-			Main.win.ta.setText(Main.win.files.get(Main.win.curFile).text);
+		if(Main.win.files.get(Main.win.curFile).f == null) {
+			System.out.print("2.1 \n");
+			if(Main.win.files.get(Main.win.curFile).addFile(Main.win.fc)) {
+				Main.win.ta.setText(Main.win.files.get(Main.win.curFile).text);
+				Main.win.files.get(Main.win.curFile).setSelected();
+			}
 		}else {
+			System.out.print("3\n");
 			Main.win.files.get(Main.win.curFile).text = Main.win.ta.getText();
 			Main.win.files.get(Main.win.curFile).unsetSelected();			
 			Main.win.curFile = Main.win.files.size();
@@ -48,10 +45,11 @@ public class Common {
 				Main.win.files.get(Main.win.curFile).menuItem.addActionListener(Main.win);
 				Main.win.files.get(Main.win.curFile).setSelected();
 				Main.win.frame.setTitle("bText - "+Main.win.files.get(Main.win.curFile).f.name);
+				Main.win.curFile = Main.win.files.size() - 1;
 			}else {
 				Main.win.files.remove(Main.win.curFile);
+				JOptionPane.showMessageDialog(null, "Opening Failed");
 			}
-			Main.win.curFile = Main.win.files.size()-1;
 		}
 	}
 	
@@ -61,13 +59,9 @@ public class Common {
 	}
 	
 	public static void newFile() {
-		if(Main.win.files.size() > 0) {
-			Main.win.files.get(Main.win.curFile).text = Main.win.ta.getText();
-			Main.win.files.get(Main.win.curFile).unsetSelected();
-			Main.win.curFile = Main.win.files.size()-1;
-			Main.win.curFile += 1;
-		}
-		Main.win.files.add(new Space(Main.win.curFile));
+		Main.win.files.add(new Space(Main.win.files.size()+1));
+		Main.win.files.get(Main.win.curFile).unsetSelected();
+		Main.win.curFile = Main.win.files.size()-1;
 		Main.win.ta.setText("");
 		Main.win.m3.add(Main.win.files.get(Main.win.curFile).menuItem);
 		Main.win.files.get(Main.win.curFile).menuItem.addActionListener(Main.win);
