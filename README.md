@@ -6,11 +6,11 @@ A Plain Text Editor, Written in Java 8.
 This requires Java to run, if you need to install java check the [Help Doc](https://github.com/dawson270500/bText/blob/master/HelpDoc.md)
 
 ----
-Coming in Version 2.2:
+Coming in Version 2.3:
 
- - New flag system for menu bar to be done
+ - Reminder to save when closing
 
- - Random bug fixes, I'm gonna do a fuck load of testing
+ - Settings to be saved between sessions
 
 ----
 Current Features:
