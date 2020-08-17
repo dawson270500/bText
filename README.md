@@ -32,6 +32,8 @@ bText is a plain text editor, written in java. It is open source. All decent ide
 
 The Documentation also includes a guide on how to add plugins and how to make them communicate with the program properly.
 
+All code is backed up in [Here](https://drive.google.com/drive/folders/1gEEEIAn28KfuhBUhths3pWlaGrrqKl24?usp=sharing), though the versions I remember to do are random so not every version is avaible for easy access.
+
 ----
 Wanna Support this project, buy me a pint.
 
