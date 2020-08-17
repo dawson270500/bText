@@ -8,8 +8,6 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import javax.swing.JFileChooser;
-
 public class FileHand {
 	
 	protected File file = null;//Holds file details, e.g. meta data

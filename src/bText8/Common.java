@@ -1,4 +1,4 @@
-package bText8;
+package bText8;//Common methods, save me writing them out god knows how many times
 
 import java.nio.charset.Charset;
 

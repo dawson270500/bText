@@ -1,4 +1,6 @@
-package bText8;//Just class starter, doesn't do anything else
+package bText8;//Starter and keyboard handler
+
+//Documentation --> https://shorturl.at/jnwO5
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

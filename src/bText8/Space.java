@@ -1,7 +1,5 @@
-package bText8;
+package bText8;//File space, used for holding mutlipe files and simplify the GUI class
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 
