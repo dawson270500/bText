@@ -10,7 +10,7 @@ Coming in Version 2.3:
 
  - Reminder to save when closing
 
- - Settings to be saved between sessions
+ - Settings to be saved between sessions, and more settings e.g. hiding menu bar 
 
 ----
 Current Features:
