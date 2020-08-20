@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 public class Main {
 	public static Gui win;
+	public static SettingsHandler settings = new SettingsHandler();
 	
 	public static void main(String args[]) {
 		win = new Gui();
@@ -49,14 +50,25 @@ public class Main {
 			        	win.ta.setText(win.files.get(win.curFile).undoBufffer.get(win.files.get(win.curFile).undoBufffer.size()-1));
 			        	win.files.get(win.curFile).pressCount =0;
 			        	win.files.get(win.curFile).undoBufffer.remove(win.files.get(win.curFile).undoBufffer.size()-1);
+			        	win.files.get(win.curFile).saveSinceChange = false;
 		        	}
 		        }else if ((e.getKeyCode() == KeyEvent.VK_Q) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)){
 		        	System.exit(0);
+	        	}else if((e.getKeyCode() == KeyEvent.VK_ALT)) {
+	        		if(settings.show == false) {
+	        			win.mb.setVisible(true);
+	        			settings.show = true;
+	        		}else {
+	        			win.mb.setVisible(false);
+	        			settings.show = false;
+	        		}
 	        	}else if(win.files.get(win.curFile).pressCount < 3){
 		        	win.files.get(win.curFile).pressCount += 1;
+		        	win.files.get(win.curFile).saveSinceChange = false;
 		        }else {
 		        	win.files.get(win.curFile).undoBufffer.add(win.ta.getText());
 		        	win.files.get(win.curFile).pressCount = 0;
+		        	win.files.get(win.curFile).saveSinceChange = false;
 		        }
 	        }
 
