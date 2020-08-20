@@ -35,7 +35,7 @@ The Documentation also includes a guide on how to add plugins and how to make th
 All code is backed up in [Here](https://drive.google.com/drive/folders/1gEEEIAn28KfuhBUhths3pWlaGrrqKl24?usp=sharing), though the versions I remember to do are random so not every version is avaible for easy access.
 
 ----
-Wanna Support this project, buy me a pint.
+Wanna Support this project, [buy me a pint](https://www.buymeacoffee.com/dawson270500)
 
 It will really help out doing so, Im a poor uni student so money is tight and it allows me to spend time doing this rather than working, Click here
 
