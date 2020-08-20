@@ -5,13 +5,10 @@ import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.List;
-
+import java.awt.event.WindowListener;
+import java.awt.event.WindowEvent;
 import javax.swing.*;
-//import javax.swing.text.EditorKit;
-//import javax.swing.text.html.HTMLEditorKit;
 
 public class Gui implements ActionListener{
 	protected JFrame frame;//window 
@@ -27,7 +24,7 @@ public class Gui implements ActionListener{
 		private CustomItem m22;//Help in future
 	protected JMenu m3;//Open files menu
 		protected CustomItem m31;//Close file
-		protected List<Space> files= new ArrayList<Space>();;//list of menu items for files open
+		protected ArrayList<Space> files= new ArrayList<Space>();;//list of menu items for files open
 	protected JMenu m4;
 		protected CustomItem m41;
 		protected CustomItem m42;
@@ -37,14 +34,67 @@ public class Gui implements ActionListener{
 	protected JTextArea ta;
 	
 	JScrollPane scroll;
-	
+	WindowListener exit;
 	protected int curFile = 0;//File handling will need a massive change for the mutliple file tabs thing. Maybe make this an array?
 	public final JFileChooser fc = new JFileChooser();
 	public Gui() {//Creates the window
 		frame = new JFrame("bText - Untitled");//Window
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+	    
 	    frame.setSize(500,500);
 	    
+	    exit = new WindowListener() {
+
+			@Override
+			public void windowActivated(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowClosed(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				if(checkClose()) {
+					System.exit(0);
+				}else {
+					if(JOptionPane.showConfirmDialog(null, "You haven't saved, are you sure?", "Not Saved", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+						System.exit(0);
+					}					
+				}
+				
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowIconified(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowOpened(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+	    	
+	    };
+	    frame.addWindowListener(exit);
 	    
 	    //Anything with a minus uses the new flag system, everything will be changed over soon enough
 	    mb = new JMenuBar();//Menu bar
@@ -104,6 +154,17 @@ public class Gui implements ActionListener{
 	    frame.getContentPane().add(BorderLayout.NORTH, mb); //Adds everything to the window
 	    frame.getContentPane().add(BorderLayout.CENTER, scroll);
 	    frame.setVisible(true);
+	    
+	}
+	
+	private Boolean checkClose() {
+		for(int i = 0; i < files.size(); i++) {
+			if(files.get(i).saveSinceChange == false) {
+				return false;
+			}
+		}
+		return true;
+		
 	}
 	
 	@Override//Action Handler

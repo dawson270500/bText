@@ -1,4 +1,6 @@
-package bText8;//Just class starter, doesn't do anything else
+package bText8;//Starter and keyboard handler
+
+//Documentation --> https://shorturl.at/jnwO5
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -47,14 +49,17 @@ public class Main {
 			        	win.ta.setText(win.files.get(win.curFile).undoBufffer.get(win.files.get(win.curFile).undoBufffer.size()-1));
 			        	win.files.get(win.curFile).pressCount =0;
 			        	win.files.get(win.curFile).undoBufffer.remove(win.files.get(win.curFile).undoBufffer.size()-1);
+			        	win.files.get(win.curFile).saveSinceChange = false;
 		        	}
 		        }else if ((e.getKeyCode() == KeyEvent.VK_Q) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)){
 		        	System.exit(0);
 	        	}else if(win.files.get(win.curFile).pressCount < 3){
 		        	win.files.get(win.curFile).pressCount += 1;
+		        	win.files.get(win.curFile).saveSinceChange = false;
 		        }else {
 		        	win.files.get(win.curFile).undoBufffer.add(win.ta.getText());
 		        	win.files.get(win.curFile).pressCount = 0;
+		        	win.files.get(win.curFile).saveSinceChange = false;
 		        }
 	        }
 

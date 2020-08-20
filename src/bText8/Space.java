@@ -1,7 +1,5 @@
-package bText8;
+package bText8;//File space, used for holding mutlipe files and simplify the GUI class
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -12,6 +10,8 @@ public class Space {
 	protected CustomItem menuItem;
 	
 	protected FileHand f;
+	
+	protected Boolean saveSinceChange = true;
 	
 	protected int pressCount = 0;
 	protected ArrayList<String> undoBufffer = new ArrayList<String>();
@@ -86,6 +86,7 @@ public class Space {
 			Main.win.frame.setTitle("bText - "+f.name);
 			Boolean ret = f.save(s);
 			if(ret == true) {
+				saveSinceChange = true;
 				return 1;
 			}
 			return -1;
@@ -94,6 +95,13 @@ public class Space {
 		
 	}
 	public boolean save(String s) {//save
-		return f.save(s);
+		Boolean saved = f.save(s);
+		if(saved == true) {
+			saveSinceChange = true;
+			return true;
+		}else {
+			saveSinceChange = false;
+			return false;
+		}
 	}
 }
