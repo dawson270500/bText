@@ -13,7 +13,7 @@ import javax.swing.*;
 public class Gui implements ActionListener{
 	protected JFrame frame;//window 
 		
-	private JMenuBar mb;//Menu bar
+	protected JMenuBar mb;//Menu bar
 	private JMenu m1;//File menu
 		private CustomItem m11;//New
 		private CustomItem m12;//Open
@@ -22,10 +22,11 @@ public class Gui implements ActionListener{
 	private JMenu m2;//View menu
 		private CustomItem m21;//Word warp
 		private CustomItem m22;//Help in future
+		private CustomItem m23;//Hide menu bar
 	protected JMenu m3;//Open files menu
 		protected CustomItem m31;//Close file
 		protected ArrayList<Space> files= new ArrayList<Space>();;//list of menu items for files open
-	protected JMenu m4;
+	protected JMenu m4;//charsets
 		protected CustomItem m41;
 		protected CustomItem m42;
 		protected CustomItem m43;
@@ -60,9 +61,11 @@ public class Gui implements ActionListener{
 			@Override
 			public void windowClosing(WindowEvent e) {
 				if(checkClose()) {
+					Main.settings.saveSet();
 					System.exit(0);
 				}else {
 					if(JOptionPane.showConfirmDialog(null, "You haven't saved, are you sure?", "Not Saved", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+						Main.settings.saveSet();
 						System.exit(0);
 					}					
 				}
@@ -104,8 +107,13 @@ public class Gui implements ActionListener{
 	        m13 = new CustomItem("Save", -4);
 	        m14 = new CustomItem("Save As", -4);
         m2 = new JMenu("View");//View menu
-        	m21 = new CustomItem("Word Warp Off", -5);
+        	if(Main.settings.wordWarp) {
+        		m21 = new CustomItem("Word Warp Off", -5);
+        	}else {
+        		m21 = new CustomItem("Word Warp On", -5);
+        	}
         	m22 = new CustomItem("Help", -6);
+        	m23 = new CustomItem("Hide Menu", -7);
         m3 = new JMenu("Tabs");//tabs menu
         	m31 = new CustomItem("Close File", -2);
         m4 = new JMenu("Charset");//charset select, works on a file by file basis
@@ -123,19 +131,22 @@ public class Gui implements ActionListener{
         	m3.add(m31);
         mb.add(m2);//view menu
 	        m2.add(m21);
+	        m2.add(m23);
 	        m2.add(m22);
 	    mb.add(m4);//Charset menu
 	    	m4.add(m41);
 	    	m4.add(m42);
 	    	m4.add(m43);
 	    	m4.add(m44);        
-        
+        mb.setVisible(Main.settings.show);
+	    	
         m11.addActionListener(this);
         m12.addActionListener(this);
         m13.addActionListener(this);
         m14.addActionListener(this);
         m21.addActionListener(this);
         m22.addActionListener(this);
+        m23.addActionListener(this);
         m31.addActionListener(this);
         m41.addActionListener(this);
         m42.addActionListener(this);
@@ -145,7 +156,8 @@ public class Gui implements ActionListener{
         
         ta = new JTextArea();//text area
         ta.setLineWrap(true);
-        ta.setWrapStyleWord(true);
+        ta.setWrapStyleWord(Main.settings.wordWarp);
+        ta.setTabSize(Main.settings.tabLen);
         
         scroll = new JScrollPane(ta); //Scrollbar
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -227,12 +239,20 @@ public class Gui implements ActionListener{
 			if(com == "Word Warp Off") {
 				ta.setLineWrap(false);
 				ta.setWrapStyleWord(false);
+				Main.settings.wordWarp = false;
+				Main.settings.saveSet();
 				m21.setText("Word Warp On");
 			}else if(com == "Word Warp On") {//word warp on
 				ta.setLineWrap(true);
 				ta.setWrapStyleWord(true);
+				Main.settings.wordWarp = true;
+				Main.settings.saveSet();
 				m21.setText("Word Warp Off");	
 			}
+		}else if(sou.val == -7) {
+			mb.setVisible(false);
+			Main.settings.show = false;
+			Main.settings.saveSet();
 		}else if(sou.val == -6) {
 			if(JOptionPane.showConfirmDialog(null, "This requires an internet connection, is that okay", null, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 				try {
